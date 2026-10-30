@@ -1,0 +1,238 @@
+/* Base styles and shared form controls. */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font: 14px system-ui, sans-serif;
+  color: #263044;
+  background: #f4f6f9;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+button {
+  padding: 7px 10px;
+  color: inherit;
+  background: white;
+  border: 1px solid #ccd2dc;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #eef1f6;
+}
+
+h2 {
+  margin: 0 0 12px;
+  font-size: 14px;
+}
+
+label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+input {
+  width: 76px;
+}
+
+input[type="range"] {
+  width: 105px;
+}
+
+output {
+  min-width: 28px;
+  font-size: 12px;
+  text-align: right;
+}
+
+hr {
+  margin: 18px 0;
+  border: 0;
+  border-top: 1px solid #edf0f4;
+}
+
+/* The editing area sits beneath the two floating panels. */
+#stage {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  touch-action: none;
+}
+
+.panel {
+  position: absolute;
+  z-index: 10;
+  padding: 14px;
+  background: white;
+  border: 1px solid #d9dee7;
+  border-radius: 8px;
+  box-shadow: 0 4px 18px #26304412;
+}
+
+#config {
+  top: 16px;
+  left: 16px;
+  width: 280px;
+}
+
+#tools {
+  top: 16px;
+  right: 16px;
+  width: 225px;
+}
+
+.layers-heading {
+  margin-top: 18px;
+}
+
+.layers-description {
+  font-size: 12px;
+  color: #778092;
+}
+
+.hint {
+  position: absolute;
+  bottom: 16px;
+  left: 16px;
+  color: #778092;
+  pointer-events: none;
+}
+
+/* Each line contains one rounded stroke and two endpoint handles.
+   Settings supply the dimensions and colors through CSS properties. */
+.line {
+  --highlight-thickness: 0px;
+  --highlight-color: transparent;
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.line.hover {
+  --highlight-thickness: 2px;
+  --highlight-color: color-mix(in srgb, var(--selection-color) 55%, white);
+}
+
+.line.selected {
+  --highlight-thickness: var(--outline-thickness);
+  --highlight-color: var(--selection-color);
+}
+
+.stroke,
+.handle {
+  position: absolute;
+  outline: var(--highlight-thickness) solid var(--highlight-color);
+  pointer-events: auto;
+}
+
+.stroke {
+  height: var(--line-width);
+  background: var(--line-fill);
+  border-radius: 999px;
+  transform-origin: 0 50%;
+  cursor: pointer;
+}
+
+.handle {
+  display: none;
+  width: var(--handle-size);
+  height: var(--handle-size);
+  background: var(--selection-color);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  cursor: grab;
+  touch-action: none;
+}
+
+.line.selected .handle {
+  display: block;
+}
+
+.handle:active {
+  cursor: grabbing;
+}
+
+/* Rows use normal document flow. During dragging, transforms preview
+   their new positions without changing the list's natural height. */
+#layers {
+  position: relative;
+  max-height: 55vh;
+  margin: 14px 0 0;
+  padding: 0;
+  overflow: auto;
+  list-style: none;
+}
+
+.layer,
+.placeholder {
+  width: 100%;
+  height: 44px;
+  transition: transform 160ms ease;
+}
+
+.layer {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 4px;
+  background: white;
+  border-top: 1px solid #edf0f4;
+}
+
+.layer.active {
+  background: #fff0df;
+}
+
+.layer.dragging {
+  z-index: 2;
+  opacity: 0.75;
+  box-shadow: 0 3px 10px #0002;
+  transition: none;
+  pointer-events: none;
+}
+
+.name {
+  flex: 1;
+  cursor: pointer;
+}
+
+.grip {
+  padding: 5px;
+  background: transparent;
+  border: 0;
+  cursor: grab;
+  user-select: none;
+  touch-action: none;
+}
+
+.delete {
+  padding: 3px 7px;
+}
+
+.placeholder {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: transparent;
+  border: 1px dashed var(--selection-color);
+  border-radius: 5px;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .layer,
+  .placeholder {
+    transition: none;
+  }
+}
