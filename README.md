@@ -26,13 +26,3 @@ js/components/settings.js – beállítások
 js/components/stage.js    – vonalak megjelenítése és végpontok mozgatása
 js/main.js               – inicializálás
 ```
-
-## Futtatás
-
-Az ES-modulok betöltéséhez helyi HTTP-szerver szükséges. A `line-editor` mappában indítsd el:
-
-```sh
-python -m http.server 8000 --bind 127.0.0.1
-```
-
-Ezután nyisd meg: <http://127.0.0.1:8000/line-editor.html>.
