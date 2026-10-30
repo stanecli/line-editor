@@ -16,8 +16,8 @@ Csinálj legalább 3 textboxot egy formon, legyen valami nevük (pl.: név, emai
 A megoldás külön CSS-fájlt és natív JavaScript ES-modulokat használ, build nélkül.
 
 ```text
-line-editor.html          – a felület HTML-szerkezete
-line-editor.css           – megjelenés
+index.html               – a felület HTML-szerkezete
+style.css                – megjelenés
 js/models.js             – adatmodellek, alapértékek és validáció
 js/services.js           – állapotkezelés és események
 js/components/layers.js   – réteglista és átrendezés
